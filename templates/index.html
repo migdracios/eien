@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>えいえん</title>
+    <style>
+        /* 1rem = 24px */
+        .container {
+            padding: 16px;
+            box-sizing: border-box;
+        }
+        .plus-div {
+            width: 7rem;
+            height: 7rem;
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+        .d-flex {
+            display: flex;
+        }
+        .flex-col {
+            flex-direction: column;
+        }
+        .center {
+            align-items: center;
+            justify-content: center;
+        }
+        .wrap {
+            width: 80%;
+            margin: auto;
+        }
+        .dashboard {
+            width: 10rem;
+            height: 15rem;
+            border: 1px solid black;
+            border-radius: 5px;
+            margin: 20px 10px;
+        }
+        .title {
+            text-align: center;
+        }
+        .nutrition {
+            width: 20rem;
+        }
+        .routine-select {
+            width: 5rem;
+            height: 1.5rem;
+            margin: 5px;
+        }
+        .routine-select-view {
+            width: 3rem;
+            height: 1.5rem;
+            margin: 5px;
+        }
+        /* #routine-detail-workout-div {
+            display: none;
+        } */
+    </style>
+</head>
+<body>
+    <div class="wrap container d-flex flex-col center">
+        <div class="container plus-div d-flex flex-col center">
+            <div class="plus-btn">+</div>
+        </div>
+        <div class="container dashboard d-flex flex-col center">
+            <!-- 상위 select -->
+            <div id="routine-top-div" class="container d-flex center">
+                <select name="routine-top-select" class="routine-select">
+                    <option value="workout">운동</option>
+                    <option value="pill">복약</option>
+                    <option value="diet">식단</option>
+                </select>
+                <button id="routine-top" class="routine-select-view">선택</button>
+            </div>
+            <!-- 하위-운동 select -->
+            <div id="routine-detail-workout-div" class="container d-flex center">
+                <select name="routine-workout-select" class="routine-select">
+                    <option value="workout-name">운동 이름</option>
+                    <option value="workout-time">복약</option>
+                    <option value="workout-overload">과부하수치</option>
+                    <option value="workout-bodypart">운동 부위</option>
+                </select>
+                <button class="routine-select-view">선택</button>
+            </div>
+            <!-- 하위-복약 select -->
+            <div id="routine-detail-pill-div" class="container d-flex center">
+                <select name="routine-pill-select" class="routine-select">
+                    <option value="pill-am">오전 복약</option>
+                    <option value="pill-pm">오후 복약</option>
+                    <option value="pill-omega">오메가 3</option>
+                </select>
+                <button class="routine-select-view">선택</button>
+            </div>
+            <!-- 하위-식단 select -->
+            <div id="routine-detail-diet-div" class="container d-flex center">
+                <select name="routine-diet-select" class="routine-select">
+                    <option value="diet-morning">오전 식단</option>
+                    <option value="diet-afternoon">오후 식단</option>
+                    <option value="diet-evening">저녁 식단</option>
+                    <option value="diet-extra">간식/야식</option>
+                </select>
+                <button class="routine-select-view">선택</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="container d-flex center">
+        <div class="dashboard d-flex flex-col center">
+            <h3 class="title">오늘의 혈압</h3>
+            <span>오전수축 : <span id="bp-1"></span>120</span>
+            <span>오전이완 : <span id="bp-2"></span>80</span>
+            <span>오후수축 : <span id="bp-3"></span>120</span>
+            <span>오후이완 : <span id="bp-4"></span>80</span>
+        </div>
+        <div class="dashboard d-flex flex-col center">
+            <h3 class="title">오늘의 복약</h3>
+            <div class="d-flex center">
+                <input type="checkbox" checked><label for="">오전</label>
+            </div>
+            <div class="d-flex center">
+                <input type="checkbox" checked><label for="">오후</label>
+            </div>
+            <div class="d-flex center">
+                <input type="checkbox" checked><label for="">오메가</label>
+            </div>
+        </div>
+    </div>
+    <div class="container d-flex center">
+        <div class="dashboard nutrition d-flex flex-col center">
+            <h3 class="title">오늘의 식단</h3>
+            <span>아침 섭취 내용 : <span id="diet-1"></span></span>
+            <span>점심 섭취 내용 : <span id="diet-2"></span></span>
+            <span>저녁 섭취 내용 : <span id="diet-3"></span></span>
+            <span>간식/야식 섭취 내용 : <span id="diet-4"></span></span>
+        </div>
+        <div class="dashboard nutrition d-flex flex-col center">
+            <h3 class="title">오늘의 영양정보</h3>
+            <span>탄수화물 섭취량 : <span id="nutri-1"></span></span>
+            <span>단백질 섭취량 : <span id="nutri-2"></span></span>
+            <span>지방 섭취량 : <span id="nutri-3"></span></span>
+            <span>당류 섭취량 : <span id="nutri-4"></span></span>
+            <span>나트륨 섭취량 : <span id="nutri-5"></span></span>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+</body>
+</html>
