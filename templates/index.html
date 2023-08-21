@@ -208,13 +208,13 @@
             console.log("Selected Select Name:", selectValue);
 
             let dataInputTag = `<div id="data-input" class="container d-flex center">
-                                    <input type="text" placeholder="${selectValue}">
+                                    <input type="text" name="${selectValue}" placeholder="${selectValue}">
                                     <button id="data-input-btn" class="add-select-btn">등록</button>
                                 </div>`
             $("#add-data-div").append(dataInputTag)
         });
 
-        
+
     </script>
 </body>
 
