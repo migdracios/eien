@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,26 +12,32 @@
             padding: 16px;
             box-sizing: border-box;
         }
+
         .plus-div {
             width: 7rem;
             height: 7rem;
             border: 1px solid black;
             border-radius: 5px;
         }
+
         .d-flex {
             display: flex;
         }
+
         .flex-col {
             flex-direction: column;
         }
+
         .center {
             align-items: center;
             justify-content: center;
         }
+
         .wrap {
             width: 80%;
             margin: auto;
         }
+
         .dashboard {
             width: 10rem;
             height: 15rem;
@@ -38,33 +45,43 @@
             border-radius: 5px;
             margin: 20px 10px;
         }
+
         .title {
             text-align: center;
         }
+
         .nutrition {
             width: 20rem;
         }
+
         .add-select {
             width: 5rem;
             height: 1.5rem;
             margin: 5px;
         }
-        .routine-select-view {
+
+        .add-select-btn {
             width: 3rem;
             height: 1.5rem;
             margin: 5px;
         }
-        /* #routine-detail-workout-div {
-            display: none;
-        } */
+
+        #add-data-div {
+            width: 20rem;
+            height: 15rem;
+            border: 1px solid black;
+            border-radius: 5px;
+            margin: 20px 10px;
+        }
     </style>
 </head>
+
 <body>
     <div class="wrap container d-flex flex-col center">
         <div class="container plus-div d-flex flex-col center">
             <div class="plus-btn">+</div>
         </div>
-        <div class="container dashboard d-flex flex-col center">
+        <div id="add-data-div" class="container d-flex flex-col center">
             <!-- 상위 select -->
             <div id="routine-top-div" class="container d-flex center">
                 <select name="routine-top-select" class="add-select">
@@ -72,36 +89,36 @@
                     <option value="pill">복약</option>
                     <option value="diet">식단</option>
                 </select>
-                <button id="routine-top" class="routine-select-view">선택</button>
+                <button id="routine-top" class="add-select-btn">선택</button>
             </div>
             <!-- 하위-운동 select -->
-            <div id="routine-detail-workout-div" class="container d-flex center">
+            <div id="routine-detail-workout-div" class="container d-flex center routine-detail-div">
                 <select name="routine-workout-select" class="add-select">
                     <option value="workout-name">운동 이름</option>
                     <option value="workout-time">복약</option>
                     <option value="workout-overload">과부하수치</option>
                     <option value="workout-bodypart">운동 부위</option>
                 </select>
-                <button id="routine-workout" class="routine-select-view">선택</button>
+                <button id="routine-workout" class="add-select-btn detail-select">선택</button>
             </div>
             <!-- 하위-복약 select -->
-            <div id="routine-detail-pill-div" class="container d-flex center">
+            <div id="routine-detail-pill-div" class="container d-flex center routine-detail-div">
                 <select name="routine-pill-select" class="add-select">
                     <option value="pill-am">오전 복약</option>
                     <option value="pill-pm">오후 복약</option>
                     <option value="pill-omega">오메가 3</option>
                 </select>
-                <button id="routine-pill" class="routine-select-view">선택</button>
+                <button id="routine-pill" class="add-select-btn detail-select">선택</button>
             </div>
             <!-- 하위-식단 select -->
-            <div id="routine-detail-diet-div" class="container d-flex center">
+            <div id="routine-detail-diet-div" class="container d-flex center routine-detail-div">
                 <select name="routine-diet-select" class="add-select">
                     <option value="diet-morning">오전 식단</option>
                     <option value="diet-afternoon">오후 식단</option>
                     <option value="diet-evening">저녁 식단</option>
                     <option value="diet-extra">간식/야식</option>
                 </select>
-                <button id="routine-diet" class="routine-select-view">선택</button>
+                <button id="routine-diet" class="add-select-btn detail-select">선택</button>
             </div>
         </div>
     </div>
@@ -146,6 +163,59 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script>
+        // 기본 추가 버튼 숨기기
+        const setupAddDataDiv = () => {
+            $("#add-data-div").css("display", "none")
+            $("#routine-detail-workout-div").css("display", "none")
+            $("#routine-detail-pill-div").css("display", "none")
+            $("#routine-detail-diet-div").css("display", "none")
+
+        }
+        setupAddDataDiv()
+
+        // 추가 버튼 클릭했을 때,
+        $(".plus-btn").click(() => {
+            $("#add-data-div").css("display", "flex")
+        })
+
+        // 셀렉트 값 보여주는 함수
+        const showUpDetailSelect = (divName) => {
+            $(".routine-detail-div").not(`#${divName}`).css("display", "none");
+            $(`#${divName}`).css("display", "flex")
+        }
+        // 각 버튼에 대한 클릭 이벤트 처리
+        $("#routine-top").click(() => {
+            const selectedOption = $("select[name=routine-top-select]").val();
+            if (selectedOption === "workout") {
+                showUpDetailSelect("routine-detail-workout-div");
+            } else if (selectedOption === "pill") {
+                showUpDetailSelect("routine-detail-pill-div");
+            } else if (selectedOption === "diet") {
+                showUpDetailSelect("routine-detail-diet-div");
+            }
+        });
+
+        // 각 하위 셀렉트 버튼에 대한 클릭 이벤트 처리
+        $(".detail-select").click((e) => {
+            const selectedButton = $(e.target);
+            const parentDiv = selectedButton.closest(".routine-detail-div");
+            console.log(parentDiv)
+            const selectValue = parentDiv.find("select").val()
+
+            console.log("Selected Select Name:", selectValue);
+
+            let dataInputTag = `<div id="data-input" class="container d-flex center">
+                                    <input type="text" placeholder="${selectValue}">
+                                    <button id="data-input-btn" class="add-select-btn">등록</button>
+                                </div>`
+            $("#add-data-div").append(dataInputTag)
+        });
+
+        
+    </script>
 </body>
+
 </html>
