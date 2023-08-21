@@ -201,19 +201,30 @@
         // 각 하위 셀렉트 버튼에 대한 클릭 이벤트 처리
         $(".detail-select").click((e) => {
             const selectedButton = $(e.target);
-            const parentDiv = selectedButton.closest(".routine-detail-div");
-            console.log(parentDiv)
+            const parentDiv = selectedButton.closest(".routine-detail-div")
             const selectValue = parentDiv.find("select").val()
 
-            console.log("Selected Select Name:", selectValue);
+            // console.log("Selected Select Name:", selectValue);
 
-            let dataInputTag = `<div id="data-input" class="container d-flex center">
-                                    <input type="text" name="${selectValue}" placeholder="${selectValue}">
+            const dataInputTag = `<div id="data-input-div" class="container d-flex center">
+                                    <input id="data-input-input" type="text" name="${selectValue}" placeholder="${selectValue}">
                                     <button id="data-input-btn" class="add-select-btn">등록</button>
                                 </div>`
             $("#add-data-div").append(dataInputTag)
-        });
 
+            $("#data-input-btn").click((e)=>{
+                const inputTag = $("#data-input-input")
+                const inputSelect = inputTag.attr("name")
+                const inputDataValue = inputTag.val()
+
+                const inputModelName = inputSelect.split("-")[0]
+                const inputDataField = inputSelect.replace("-", "_")
+
+                let formData = new FormData()
+                formData.append("")
+                
+            })
+        });
 
     </script>
 </body>
