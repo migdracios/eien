@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +9,22 @@
     main {
       width: 100%;
     }
-    #report-card {
-     background-color: lightblue;
-     width: 40%;
-     height: 20%;
-     padding: 1.5rem 0;
-     border-radius: 1rem;
-     margin: 1rem 0;
 
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
+    #report-card {
+      background-color: lightblue;
+      width: 40%;
+      height: 20%;
+      padding: 1.5rem 0;
+      border-radius: 1rem;
+      margin: 1rem 0;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    #report-card > button {
+
+    #report-card>button {
       margin: 0.5rem;
       width: 70%;
       background-color: black;
@@ -30,12 +33,28 @@
       padding: 0.5rem;
       border-radius: 0.2rem;
       cursor: pointer;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    #report-card > button:hover {
+
+    #report-card>button>input {
+      padding: 0.3rem;
+      margin: 0.3rem 0;
+    }
+
+    #report-card>button>input::placeholder {
+      text-align: center;
+    }
+
+    #report-card>button:hover {
       background-color: gray;
     }
   </style>
 </head>
+
 <body>
   <header>
     <nav>
@@ -67,15 +86,52 @@
       ['workout-report', ['웨이트 트레이닝', '유산소 트레이닝']],
       ['disease-report', ['아침 혈압', '저녁 혈압', '아침 약', '저녁 약']],
       ['system-report', ['체중', '근골격량', '체지방률']]
-    ]
+    ];
+
+    // 이미 생성된 리포트 카드의 ID를 저장할 Set
+    const createdReportCards = new Set();
+
     // 테마 오브젝트를 받아 html을 내부에 생성
     const makeReportCard = (themeObject) => {
-      let targetId = themeObject[0]
-      let inputList = themeObject[1]
-      inputList.forEach((inputTheme)=>{
-        let tempHtml = `<input >`
-      })
-    }
+      let targetId = themeObject[0];
+
+      // 이미 생성된 리포트 카드인지 확인
+      if (!createdReportCards.has(targetId)) {
+        let inputList = themeObject[1];
+
+        // 가상의 div 태그 선택
+        let targetDiv = document.getElementById(targetId);
+
+        // input 태그 생성 및 추가
+        inputList.forEach((inputTheme) => {
+          let input = document.createElement('input');
+          input.setAttribute('name', inputTheme);
+          input.setAttribute('placeholder', inputTheme);
+          targetDiv.appendChild(input);
+        });
+
+        // "제출하기" 버튼 생성 및 추가
+        let submitButton = document.createElement('button');
+        submitButton.textContent = '제출하기';
+        targetDiv.appendChild(submitButton);
+
+        // 생성된 리포트 카드의 ID를 저장
+        createdReportCards.add(targetId);
+      } else {
+        console.log(`Report card with id ${targetId} has already been created.`);
+      }
+    };
+
+    // 리포트 카드 내 버튼에 따라 태그 생성 적용
+    document.getElementById('report-card').addEventListener('click', (event) => {
+      if (event.target.tagName === 'BUTTON') {
+        let buttonId = event.target.id;
+        let targetObjectList = reportThemeList.find(([themeId]) => themeId === buttonId);
+        makeReportCard(targetObjectList);
+      }
+    });
+
   </script>
 </body>
+
 </html>
