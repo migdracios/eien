@@ -5,8 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>평생 기록지, 에이엔</title>
   <style>
+    main {
+      width: 100%;
+    }
     #report-card {
-     
+     background-color: lightblue;
+     width: 40%;
+     height: 20%;
+     padding: 1.5rem 0;
+     border-radius: 1rem;
+     margin: 1rem 0;
+
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+    }
+    #report-card > button {
+      margin: 0.5rem;
+      width: 70%;
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 0.5rem;
+      border-radius: 0.2rem;
+      cursor: pointer;
+    }
+    #report-card > button:hover {
+      background-color: gray;
     }
   </style>
 </head>
@@ -23,17 +49,33 @@
     </div>
   </header>
   <main>
+    <div id="report-card">
+      <button id="diet-report">다이어트 리포트</button>
+      <button id="workout-report">워크아웃 리포트</button>
+      <button id="disease-report">질병관리 리포트</button>
+      <button id="system-report">신체정보 리포트</button>
+    </div>
     <div>
       graph ...
     </div>
-    <div id="report-card">
-      Easy Report ...
-      <button>다이어트 리포트</button>
-      <button>워크아웃 리포트</button>
-      <button>질병관리 리포트</button>
-    </div>
   </main>
   <footer></footer>
-
+  <script>
+    // 리포트 테마 세팅
+    let reportThemeList = [
+      ['diet-report', ['아침식단', '점심식단', '저녁식단', '간식', '야식']],
+      ['workout-report', ['웨이트 트레이닝', '유산소 트레이닝']],
+      ['disease-report', ['아침 혈압', '저녁 혈압', '아침 약', '저녁 약']],
+      ['system-report', ['체중', '근골격량', '체지방률']]
+    ]
+    // 테마 오브젝트를 받아 html을 내부에 생성
+    const makeReportCard = (themeObject) => {
+      let targetId = themeObject[0]
+      let inputList = themeObject[1]
+      inputList.forEach((inputTheme)=>{
+        let tempHtml = `<input >`
+      })
+    }
+  </script>
 </body>
 </html>
