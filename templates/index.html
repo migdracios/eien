@@ -10,9 +10,11 @@
       height: 30%;
       /* background-color: violet; */
     }
+
     h1 {
       text-align: center;
     }
+
     main {
       width: 100%;
 
@@ -23,6 +25,7 @@
 
       margin: 2rem auto;
     }
+
     header>div {
       width: 50%;
       margin: auto;
@@ -30,6 +33,7 @@
       align-items: center;
       justify-content: space-around;
     }
+
     #report-card {
       border: gray 1px solid;
       width: 40%;
@@ -133,6 +137,7 @@
         // "제출하기" 버튼 생성 및 추가
         let submitButton = document.createElement('button');
         submitButton.textContent = '제출하기';
+        submitButton.setAttribute('class', 'reportSubmitBtn')
         targetDiv.appendChild(submitButton);
 
         // 생성된 리포트 카드의 ID를 저장
@@ -140,6 +145,27 @@
       } else {
         alert(`Report card with id ${targetId} has already been created.`);
       }
+
+      // 리포트 제출 버튼을 누르면, 데이터베이스에 저장
+      document.querySelector('.reportSubmitBtn').addEventListener('click', (event) => {
+        const parentElement = event.target.parentNode;
+        const targetTheme = parentElement.getAttribute('id')
+        // 부모 요소 내의 input 태그들을 선택하여 value를 출력 및 formData 적재
+        const inputElements = parentElement.querySelectorAll('input');
+        let formData = new FormData()
+        formData.append('theme', targetTheme)
+        inputElements.forEach((input) => {
+          // console.log(`${input.getAttribute('name')}: ${input.value}`);
+          formData.append(input.name, input.value)
+        });
+        // 리포트 등록 POST fetch
+        fetch('/api/report', {
+          method : 'POST',
+          body : formData
+        }).then(res => res.json()).then(data => {
+          console.log(data)
+        })
+      });
     };
 
     // 리포트 카드 내 버튼에 따라 태그 생성 적용
@@ -147,9 +173,15 @@
       if (event.target.tagName === 'BUTTON') {
         let buttonId = event.target.id;
         let targetObjectList = reportThemeList.find(([themeId]) => themeId === buttonId);
-        makeReportCard(targetObjectList);
+        if (targetObjectList) {
+          makeReportCard(targetObjectList);
+        } else {
+          console.error('Theme not found or clicked another button')
+        }
       }
     });
+
+
 
   </script>
 </body>

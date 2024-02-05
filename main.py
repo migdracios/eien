@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from json import JSONDecodeError
+from fastapi import FastAPI, Form, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.templating import Jinja2Templates
@@ -21,3 +22,14 @@ async def read_index(request: Request):
 @app.get("/images/{image_name}")
 async def get_image(image_name: str):
     return FileResponse(f"static/images/{image_name}", media_type="image/png")
+
+# report posting api
+@app.post("/api/report")
+async def post_report(request: Request):
+    receive_form = await request.form()
+    for field_key, field_value in receive_form.items():
+        print(field_key, field_value)
+    
+
+
+    return ""
